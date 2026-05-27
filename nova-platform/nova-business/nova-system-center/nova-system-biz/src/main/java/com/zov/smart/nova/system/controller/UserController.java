@@ -42,7 +42,7 @@ public class UserController {
 
     @GetMapping
     @RequirePermission(SystemPermissionConstants.USER_LIST)
-    public Result<PageResult<UserPageVO>> pageUsers(@Valid UserPageQuery query) {
+    public Result<PageResult<UserPageVO>> pageUsers(@Valid  @RequestBody UserPageQuery query) {
         return Result.success(userBiz.pageUsers(query));
     }
 

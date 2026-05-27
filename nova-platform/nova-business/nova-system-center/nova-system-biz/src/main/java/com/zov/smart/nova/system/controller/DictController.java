@@ -45,7 +45,7 @@ public class DictController {
 
     @GetMapping("/dict-types")
     @RequirePermission(SystemPermissionConstants.DICT_LIST)
-    public Result<PageResult<DictTypeVO>> pageDictTypes(@Valid DictTypePageQuery query) {
+    public Result<PageResult<DictTypeVO>> pageDictTypes(@Valid  @RequestBody DictTypePageQuery query) {
         return Result.success(dictBiz.pageDictTypes(query));
     }
 

@@ -12,9 +12,9 @@ spring:
     allow-bean-definition-overriding: false
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${NOVA_DATASOURCE_URL:jdbc:mysql://127.0.0.1:3306/nova_platform?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true}
-    username: ${NOVA_DATASOURCE_USERNAME:nova}
-    password: ${NOVA_DATASOURCE_PASSWORD:nova123456}
+    url: ${NOVA_DATASOURCE_URL:jdbc:mysql://112.124.98.145:3306/nova_platform?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true}
+    username: ${NOVA_DATASOURCE_USERNAME:root}
+    password: ${NOVA_DATASOURCE_PASSWORD:root@1234}
     hikari:
       pool-name: NovaHikariPool
       minimum-idle: ${NOVA_DATASOURCE_MIN_IDLE:5}
@@ -23,10 +23,10 @@ spring:
       idle-timeout: 600000
       max-lifetime: 1800000
   redis:
-    host: ${NOVA_REDIS_HOST:127.0.0.1}
-    port: ${NOVA_REDIS_PORT:6379}
+    host: ${NOVA_REDIS_HOST:112.124.98.145}
+    port: ${NOVA_REDIS_PORT:6381}
     database: ${NOVA_REDIS_DATABASE:0}
-    password: ${NOVA_REDIS_PASSWORD:}
+    password: ${NOVA_REDIS_PASSWORD:123456}
     timeout: 3000ms
     lettuce:
       pool:
@@ -74,6 +74,7 @@ nova:
       - /api/auth/refresh
       - /doc.html
       - /v2/api-docs
+      - /v3/api-docs/**
       - /v2/api-docs/**
       - /swagger-resources/**
       - /webjars/**

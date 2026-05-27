@@ -39,7 +39,7 @@ public class MenuController {
 
     @GetMapping
     @RequirePermission(SystemPermissionConstants.MENU_LIST)
-    public Result<List<MenuTreeVO>> listTree(@Valid MenuTreeQuery query) {
+    public Result<List<MenuTreeVO>> listTree(@Valid @RequestBody MenuTreeQuery query) {
         return Result.success(menuBiz.listMenuTree(query));
     }
 

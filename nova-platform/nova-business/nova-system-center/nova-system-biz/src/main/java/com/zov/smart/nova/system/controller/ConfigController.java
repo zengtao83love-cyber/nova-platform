@@ -40,7 +40,7 @@ public class ConfigController {
 
     @GetMapping
     @RequirePermission(SystemPermissionConstants.CONFIG_LIST)
-    public Result<PageResult<ConfigVO>> pageConfigs(@Valid ConfigPageQuery query) {
+    public Result<PageResult<ConfigVO>> pageConfigs(@Valid  @RequestBody ConfigPageQuery query) {
         return Result.success(configBiz.pageConfigs(query));
     }
 

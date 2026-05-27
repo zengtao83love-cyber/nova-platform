@@ -40,7 +40,7 @@ public class RoleController {
 
     @GetMapping
     @RequirePermission(SystemPermissionConstants.ROLE_LIST)
-    public Result<PageResult<RoleVO>> pageRoles(@Valid RolePageQuery query) {
+    public Result<PageResult<RoleVO>> pageRoles(@Valid @RequestBody RolePageQuery query) {
         return Result.success(roleBiz.pageRoles(query));
     }
 

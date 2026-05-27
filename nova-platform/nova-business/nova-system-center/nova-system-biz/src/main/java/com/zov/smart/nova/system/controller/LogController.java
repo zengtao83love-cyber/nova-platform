@@ -11,6 +11,7 @@ import com.zov.smart.nova.system.api.vo.log.LoginLogVO;
 import com.zov.smart.nova.system.biz.LogBiz;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,7 +31,7 @@ public class LogController {
 
     @GetMapping("/login-logs")
     @RequirePermission(SystemPermissionConstants.LOGIN_LOG_LIST)
-    public Result<PageResult<LoginLogVO>> pageLoginLogs(@Valid LoginLogPageQuery query) {
+    public Result<PageResult<LoginLogVO>> pageLoginLogs(@Valid  @RequestBody LoginLogPageQuery query) {
         return Result.success(logBiz.pageLoginLogs(query));
     }
 

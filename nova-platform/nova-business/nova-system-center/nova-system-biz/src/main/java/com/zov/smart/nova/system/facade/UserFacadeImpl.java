@@ -50,7 +50,7 @@ public class UserFacadeImpl implements UserFacade {
             dto.setNickname(item.getNickname());
             dto.setMobile(item.getMobile());
             dto.setEmail(item.getEmail());
-            dto.setAvatar(item.getAvatar());
+            //dto.setAvatar(item.getAvatar());
             dto.setStatus(item.getStatus());
             dto.setSuperAdminFlag(item.getSuperAdminFlag());
             dto.setLastLoginAt(item.getLastLoginAt());
