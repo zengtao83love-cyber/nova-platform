@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.zov.smart.nova</groupId>
+        <artifactId>nova-platform</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>nova-bootstrap</artifactId>
+    <packaging>jar</packaging>
+
+    <name>nova-bootstrap</name>
+    <description>Top-level runtime assembly module for nova-platform application startup.</description>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.zov.smart.nova</groupId>
+                <artifactId>nova-bom</artifactId>
+                <version>${revision}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- Business runtime assembly. -->
+        <dependency>
+            <groupId>com.zov.smart.nova</groupId>
+            <artifactId>nova-system-biz</artifactId>
+        </dependency>
+
+        <!-- Infrastructure runtime assembly. -->
+        <dependency>
+            <groupId>com.zov.smart.nova</groupId>
+            <artifactId>nova-infra-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zov.smart.nova</groupId>
+            <artifactId>nova-infra-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zov.smart.nova</groupId>
+            <artifactId>nova-infra-mybatisplus</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zov.smart.nova</groupId>
+            <artifactId>nova-infra-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zov.smart.nova</groupId>
+            <artifactId>nova-infra-guard</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zov.smart.nova</groupId>
+            <artifactId>nova-infra-audit</artifactId>
+        </dependency>
+
+        <!-- Runtime database driver. The actual datasource configuration belongs only to application.yml in this module. -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Runtime observability and API documentation. -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi2-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- Bootstrap contract tests. -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <skip>false</skip>
+                    <mainClass>com.zov.smart.nova.bootstrap.NovaApplication</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

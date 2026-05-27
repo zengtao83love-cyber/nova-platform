@@ -1,0 +1,1027 @@
+{
+  "project": {
+    "name": "nova-platform",
+    "groupId": "com.zov.smart.nova",
+    "artifactId": "nova-platform",
+    "versionProperty": "${revision}",
+    "currentRevision": "1.0.0-SNAPSHOT",
+    "packaging": "pom",
+    "javaTarget": "8",
+    "springBootVersion": "2.7.18",
+    "dependencyManagementModule": "nova-bom",
+    "managedVersions": {
+      "springBoot": "2.7.18",
+      "mybatisPlus": "3.5.5",
+      "mysqlConnectorJ": "8.0.33",
+      "jjwt": "0.11.5",
+      "knife4j": "4.3.0",
+      "mapstruct": "1.5.5.Final",
+      "lombok": "1.18.30",
+      "hutool": "5.8.26",
+      "commonsLang3": "3.13.0",
+      "junitJupiter": "5.10.1",
+      "mockito": "5.6.0"
+    }
+  },
+  "sdd": {
+    "currentTaskId": "T-131~T-140",
+    "currentTaskName": "合并执行最终集成测试、边界校验、禁止规则校验与最终交付包整理",
+    "phase": "final-acceptance-delivery",
+    "specTruthSources": [
+      "15_MODULE_NOVA_BOOTSTRAP_SPEC.md",
+      "16_DATABASE_SCHEMA_SPEC.md",
+      "17_SQL_INIT_DATA_SPEC.md",
+      "20_DEPLOYMENT_AND_CONFIG_SPEC.md",
+      "24_LOGGING_AND_MONITORING_SPEC.md"
+    ],
+    "confirmedConflictResolutions": {
+      "knife4jVersion": "4.3.0",
+      "jwtSecretEnvName": "NOVA_SECURITY_JWT_SECRET",
+      "assignCommandNames": [
+        "AssignUserRolesCommand",
+        "AssignRoleMenusCommand"
+      ],
+      "lockedAccountHttpStatus": 200,
+      "asyncUserContextPolicy": "Do not rely on LoginUserContext in async threads; pass required user values explicitly.",
+      "auditDataAccessPolicy": "nova-infra-audit owns its audit DO/Mapper/XML and does not depend on nova-data-access.",
+      "requestIdHeader": "X-Request-Id",
+      "securityConfigSource": "YAML and environment variables drive security runtime configuration. sys_config entries are display/management parameters unless explicitly wired later."
+    },
+    "validation": {
+      "taskId": "T-117~T-130",
+      "xmlParsing": "passed: all POM and XML files are well-formed",
+      "mapperScanPolicy": "passed: @MapperScan exists only in nova-bootstrap/NovaApplication.java",
+      "configurationOwnership": "passed: application.yml exists only in nova-bootstrap/src/main/resources",
+      "logbackPolicy": "passed: logback-spring.xml exists only in nova-bootstrap and includes MDC traceId",
+      "sqlPolicy": "passed: system/audit DDL and init SQL files generated under deploy/sql",
+      "dockerPolicy": "passed: docker-compose.yml contains MySQL 8 and Redis 6 local services",
+      "mavenCompile": "not executed: mvn is not installed in the sandbox"
+    },
+    "updatedAt": "2026-05-26T13:41:47Z",
+    "notes": [
+      "Stable response objects were placed under nova-system-api.vo to satisfy the T-79~T-88 task blueprint while avoiding Controller-specific response implementation.",
+      "AssignUserRolesCommand and AssignRoleMenusCommand use the confirmed plural class names.",
+      "system-api remains free from data-access, infra, web implementation, mapper, DO, and MyBatis annotations."
+    ],
+    "lastUpdatedAt": "2026-05-27T01:18:05Z"
+  },
+  "files": {
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/constant/SystemPermissionConstants.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/constant/SystemCacheConstants.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/command/user/CreateUserCommand.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/command/user/UpdateUserCommand.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/command/user/ResetPasswordCommand.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/command/user/AssignUserRolesCommand.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/query/user/UserPageQuery.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/dto/user/UserDTO.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/vo/user/UserPageVO.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/vo/user/UserDetailVO.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/command/role/CreateRoleCommand.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/command/role/UpdateRoleCommand.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/command/role/AssignRoleMenusCommand.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/query/role/RolePageQuery.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/dto/role/RoleDTO.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/vo/role/RoleVO.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/command/menu/CreateMenuCommand.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/command/menu/UpdateMenuCommand.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/query/menu/MenuTreeQuery.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/dto/menu/MenuDTO.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/vo/menu/MenuVO.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/vo/menu/MenuTreeVO.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/command/dict/CreateDictTypeCommand.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/command/dict/UpdateDictTypeCommand.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/command/dict/CreateDictItemCommand.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/command/dict/UpdateDictItemCommand.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/query/dict/DictTypePageQuery.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/query/dict/DictItemPageQuery.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/dto/dict/DictTypeDTO.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/dto/dict/DictItemDTO.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/vo/dict/DictTypeVO.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/vo/dict/DictItemVO.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/vo/dict/LabelValue.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/command/config/CreateConfigCommand.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/command/config/UpdateConfigCommand.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/query/config/ConfigPageQuery.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/dto/config/ConfigDTO.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/vo/config/ConfigVO.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/vo/config/ConfigValueResponse.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/query/log/LoginLogPageQuery.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/query/log/AuditLogPageQuery.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/vo/log/LoginLogVO.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/vo/log/AuditLogVO.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/vo/enums/EnumItemVO.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/vo/enums/EnumInfoVO.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/vo/enums/EntityEnumVO.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/facade/UserFacade.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/facade/RoleFacade.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/facade/MenuFacade.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/facade/PermissionFacade.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/facade/DictFacade.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/facade/ConfigFacade.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/facade/LogFacade.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/facade/EnumFacade.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/main/java/com/zov/smart/nova/system/api/event/SystemCacheEvictEvent.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/test/java/com/zov/smart/nova/system/api/contract/UserContractTest.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/test/java/com/zov/smart/nova/system/api/contract/RoleMenuContractTest.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/test/java/com/zov/smart/nova/system/api/contract/DictConfigLogEnumContractTest.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/test/java/com/zov/smart/nova/system/api/contract/FacadeContractTest.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/src/test/java/com/zov/smart/nova/system/api/contract/SystemApiBoundaryTest.java": {
+      "status": "created",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/pom.xml": {
+      "status": "modified",
+      "task": "T-79~T-90"
+    },
+    "nova-business/nova-system-center/nova-system-api/README.md": {
+      "status": "modified",
+      "task": "T-79~T-90"
+    },
+    "README.md": {
+      "status": "modified",
+      "task": "T-117~T-130"
+    },
+    "nova-bootstrap/pom.xml": {
+      "status": "modified",
+      "task": "T-117~T-130"
+    },
+    "nova-bootstrap/README.md": {
+      "status": "modified",
+      "task": "T-117~T-130"
+    },
+    "file_manifest.json": {
+      "status": "modified",
+      "task": "T-117~T-130"
+    },
+    "nova-bootstrap/src/main/java/com/zov/smart/nova/bootstrap/NovaApplication.java": {
+      "status": "created",
+      "task": "T-117~T-130"
+    },
+    "nova-bootstrap/src/main/resources/application.yml": {
+      "status": "created",
+      "task": "T-117~T-130"
+    },
+    "nova-bootstrap/src/main/resources/logback-spring.xml": {
+      "status": "created",
+      "task": "T-117~T-130"
+    },
+    "nova-bootstrap/src/test/java/com/zov/smart/nova/bootstrap/NovaApplicationContractTest.java": {
+      "status": "created",
+      "task": "T-117~T-130"
+    },
+    "nova-bootstrap/src/test/java/com/zov/smart/nova/bootstrap/ApplicationYamlContractTest.java": {
+      "status": "created",
+      "task": "T-117~T-130"
+    },
+    "nova-bootstrap/src/test/java/com/zov/smart/nova/bootstrap/LogbackContractTest.java": {
+      "status": "created",
+      "task": "T-117~T-130"
+    },
+    "deploy/sql/001_schema_system.sql": {
+      "status": "created",
+      "task": "T-117~T-130"
+    },
+    "deploy/sql/002_schema_audit.sql": {
+      "status": "created",
+      "task": "T-117~T-130"
+    },
+    "deploy/sql/003_init_admin.sql": {
+      "status": "created",
+      "task": "T-117~T-130"
+    },
+    "deploy/sql/004_init_rbac.sql": {
+      "status": "created",
+      "task": "T-117~T-130"
+    },
+    "deploy/sql/005_init_dict_config.sql": {
+      "status": "created",
+      "task": "T-117~T-130"
+    },
+    "deploy/sql/README.md": {
+      "status": "created",
+      "task": "T-117~T-130"
+    },
+    "deploy/docker/docker-compose.yml": {
+      "status": "created",
+      "task": "T-117~T-130"
+    },
+    "deploy/docker/.env.example": {
+      "status": "created",
+      "task": "T-117~T-130"
+    },
+    "deploy/docker/README.md": {
+      "status": "created",
+      "task": "T-117~T-130"
+    },
+    "deploy/check/validate-deploy-files.sh": {
+      "status": "created",
+      "task": "T-117~T-130"
+    }
+  },
+  "plannedModules": [
+    {
+      "path": "nova-bom",
+      "status": "created",
+      "taskId": "T-02",
+      "packaging": "pom",
+      "description": "Dependency version management module."
+    },
+    {
+      "path": "nova-common",
+      "status": "created",
+      "taskId": "T-03",
+      "packaging": "pom",
+      "description": "Common aggregation module with seven child common modules."
+    },
+    {
+      "path": "nova-infra",
+      "status": "created",
+      "plannedTaskId": "T-04",
+      "taskId": "T-04",
+      "packaging": "pom",
+      "description": "Infrastructure aggregation module with six child infrastructure modules."
+    },
+    {
+      "path": "nova-data-access",
+      "status": "created",
+      "taskId": "T-05",
+      "packaging": "jar",
+      "description": "System persistence module skeleton."
+    },
+    {
+      "path": "nova-business",
+      "status": "created",
+      "taskId": "T-06",
+      "packaging": "pom",
+      "description": "Business aggregation module with nova-system-center only."
+    },
+    {
+      "path": "nova-bootstrap",
+      "status": "pending",
+      "plannedTaskId": "T-07"
+    }
+  ],
+  "forbiddenModulesNotCreated": [
+    "nova-file-center",
+    "nova-finance-center",
+    "nova-ai-center",
+    "nova-notify-center",
+    "nova-job-center",
+    "nova-workflow-center",
+    "nova-infra-oss",
+    "nova-infra-ai",
+    "nova-infra-mq",
+    "nova-infra-sms",
+    "nova-infra-mail",
+    "nova-infra-search",
+    "nova-infra-vector",
+    "nova-infra-workflow",
+    "nova-generator",
+    "nova-plugin",
+    "nova-architecture"
+  ],
+  "validation": {
+    "taskId": "T-47~T-52",
+    "xmlParsing": "passed by local parser",
+    "webAutoConfigurationRegistration": "spring.factories created",
+    "redisAutoConfigurationRegistration": "spring.factories created",
+    "requestHeaderConstant": "X-Request-Id",
+    "forbiddenJakartaScan": "passed: no jakarta imports/usages in main Java and no literal in T-47~T-52 module tests",
+    "forbiddenMapperScan": "passed",
+    "forbiddenNovaBaseMapperScan": "passed: no NovaBaseMapper implementation or main-source usage generated",
+    "applicationConfigScan": "passed: no application.yml/properties created",
+    "mavenValidate": "not executed: mvn unavailable in sandbox"
+  },
+  "createdCommonModules": [
+    {
+      "path": "nova-common/nova-common-core",
+      "status": "created",
+      "taskId": "T-03",
+      "packaging": "jar",
+      "description": "Common core contracts: Result, error codes, exceptions, assertions, constants, and common enums."
+    },
+    {
+      "path": "nova-common/nova-common-model",
+      "status": "created",
+      "taskId": "T-03",
+      "packaging": "jar",
+      "description": "Cross-layer shared models: page, sort, tree, label-value, id-name, and id-list contracts."
+    },
+    {
+      "path": "nova-common/nova-common-context",
+      "status": "created",
+      "taskId": "T-03",
+      "packaging": "jar",
+      "description": "Request and thread context contracts such as login user context and trace context."
+    },
+    {
+      "path": "nova-common/nova-common-event",
+      "status": "created",
+      "taskId": "T-03",
+      "packaging": "jar",
+      "description": "Synchronous domain event abstractions without external MQ dependencies."
+    },
+    {
+      "path": "nova-common/nova-common-util",
+      "status": "created",
+      "taskId": "T-03",
+      "packaging": "jar",
+      "description": "Pure Java utility contracts for JSON, mask, IP, crypto, and tree helpers."
+    },
+    {
+      "path": "nova-common/nova-common-mybatis",
+      "status": "created",
+      "taskId": "T-03",
+      "packaging": "jar",
+      "description": "MyBatis compile-time contracts: BaseDO, enum contracts, and JSON type handler dependencies."
+    },
+    {
+      "path": "nova-common/nova-common-test",
+      "status": "created",
+      "taskId": "T-03",
+      "packaging": "jar",
+      "description": "Shared test support based on JUnit 5 and Mockito."
+    }
+  ],
+  "createdBusinessModules": [
+    {
+      "path": "nova-business",
+      "status": "created",
+      "taskId": "T-06",
+      "packaging": "pom",
+      "description": "Top-level business aggregation module."
+    },
+    {
+      "path": "nova-business/nova-system-center",
+      "status": "created",
+      "taskId": "T-06",
+      "packaging": "pom",
+      "description": "System management center aggregation module containing system-api and system-biz."
+    },
+    {
+      "path": "nova-business/nova-system-center/nova-system-api",
+      "status": "created",
+      "taskId": "T-06",
+      "packaging": "jar",
+      "description": "Clean system API contract module; no data-access, infra, web starter, or MyBatis dependency."
+    },
+    {
+      "path": "nova-business/nova-system-center/nova-system-biz",
+      "status": "created",
+      "taskId": "T-06",
+      "packaging": "jar",
+      "description": "System management business implementation module with allowed dependencies on system-api, data-access, common, and selected infra modules."
+    }
+  ],
+  "tasks": {
+    "0": {
+      "taskId": "T-17~T-24",
+      "taskName": "common-context-model-util-mybatis-foundation",
+      "status": "completed",
+      "description": "Merged batch for login user context, BaseDO, DbEnum, common utilities, MyBatis JSON/enum type handlers, and tests.",
+      "changedFiles": [
+        {
+          "path": "nova-common/nova-common-context/pom.xml",
+          "status": "modified"
+        },
+        {
+          "path": "nova-common/nova-common-context/src/main/java/com/zov/smart/nova/common/context/LoginUser.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-common/nova-common-context/src/main/java/com/zov/smart/nova/common/context/LoginUserContext.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-common/nova-common-context/src/main/java/com/zov/smart/nova/common/context/TraceContext.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-common/nova-common-context/src/main/java/com/zov/smart/nova/common/context/RequestIdHolder.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-common/nova-common-context/src/test/java/com/zov/smart/nova/common/context/LoginUserContextTest.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-common/nova-common-context/src/test/java/com/zov/smart/nova/common/context/TraceContextTest.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-common/nova-common-mybatis/pom.xml",
+          "status": "modified"
+        },
+        {
+          "path": "nova-common/nova-common-mybatis/src/main/java/com/zov/smart/nova/common/mybatis/entity/BaseDO.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-common/nova-common-mybatis/src/main/java/com/zov/smart/nova/common/mybatis/enums/DbEnum.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-common/nova-common-mybatis/src/main/java/com/zov/smart/nova/common/mybatis/handler/JacksonJsonTypeHandler.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-common/nova-common-mybatis/src/main/java/com/zov/smart/nova/common/mybatis/handler/EnumCodeTypeHandler.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-common/nova-common-mybatis/src/test/java/com/zov/smart/nova/common/mybatis/entity/BaseDOTest.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-common/nova-common-mybatis/src/test/java/com/zov/smart/nova/common/mybatis/enums/DbEnumTest.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-common/nova-common-mybatis/src/test/java/com/zov/smart/nova/common/mybatis/handler/JacksonJsonTypeHandlerTest.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-common/nova-common-mybatis/src/test/java/com/zov/smart/nova/common/mybatis/handler/EnumCodeTypeHandlerTest.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-common/nova-common-util/pom.xml",
+          "status": "modified"
+        },
+        {
+          "path": "nova-common/nova-common-util/src/main/java/com/zov/smart/nova/common/util/JsonUtils.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-common/nova-common-util/src/main/java/com/zov/smart/nova/common/util/MaskUtils.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-common/nova-common-util/src/main/java/com/zov/smart/nova/common/util/IpUtils.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-common/nova-common-util/src/main/java/com/zov/smart/nova/common/util/ServletUtils.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-common/nova-common-util/src/test/java/com/zov/smart/nova/common/util/JsonUtilsTest.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-common/nova-common-util/src/test/java/com/zov/smart/nova/common/util/MaskUtilsTest.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-common/nova-common-util/src/test/java/com/zov/smart/nova/common/util/IpUtilsTest.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-common/nova-common-util/src/test/java/com/zov/smart/nova/common/util/ServletUtilsTest.java",
+          "status": "created"
+        },
+        {
+          "path": "README.md",
+          "status": "modified"
+        },
+        {
+          "path": "file_manifest.json",
+          "status": "modified"
+        }
+      ]
+    },
+    "T-91~T-102": {
+      "status": "completed",
+      "type": "merged-coding-test",
+      "summary": "Implemented user and role converter/service/biz/controller/facade layers and contract tests.",
+      "changedFiles": [
+        "nova-business/nova-system-center/nova-system-biz/pom.xml",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/error/SystemErrorCode.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/support/StatusValidators.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/support/TransactionAfterCommitExecutor.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/converter/UserConverter.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/converter/RoleConverter.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/service/UserService.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/service/RoleService.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/service/impl/UserServiceImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/service/impl/RoleServiceImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/biz/UserBiz.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/biz/RoleBiz.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/biz/impl/UserBizImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/biz/impl/RoleBizImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/controller/UserController.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/controller/RoleController.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/facade/UserFacadeImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/facade/RoleFacadeImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/test/java/com/zov/smart/nova/system/converter/UserConverterContractTest.java",
+        "nova-business/nova-system-center/nova-system-biz/src/test/java/com/zov/smart/nova/system/converter/RoleConverterContractTest.java",
+        "nova-business/nova-system-center/nova-system-biz/src/test/java/com/zov/smart/nova/system/error/SystemErrorCodeTest.java",
+        "nova-business/nova-system-center/nova-system-biz/src/test/java/com/zov/smart/nova/system/service/UserServiceContractTest.java",
+        "nova-business/nova-system-center/nova-system-biz/src/test/java/com/zov/smart/nova/system/service/RoleServiceContractTest.java",
+        "nova-business/nova-system-center/nova-system-biz/src/test/java/com/zov/smart/nova/system/biz/UserBizContractTest.java",
+        "nova-business/nova-system-center/nova-system-biz/src/test/java/com/zov/smart/nova/system/biz/RoleBizContractTest.java",
+        "nova-business/nova-system-center/nova-system-biz/src/test/java/com/zov/smart/nova/system/controller/UserControllerContractTest.java",
+        "nova-business/nova-system-center/nova-system-biz/src/test/java/com/zov/smart/nova/system/controller/RoleControllerContractTest.java",
+        "nova-business/nova-system-center/nova-system-biz/src/test/java/com/zov/smart/nova/system/facade/FacadeBoundaryContractTest.java",
+        "nova-business/nova-system-center/nova-system-biz/src/test/java/com/zov/smart/nova/system/support/SystemBizModuleBoundaryTest.java",
+        "nova-business/nova-system-center/nova-system-biz/pom.xml"
+      ]
+    }
+  },
+  "currentTask": {
+    "id": "T-91~T-102",
+    "name": "User/Role 管理业务闭环合并批次",
+    "status": "completed"
+  },
+  "lastCompletedTask": "T-91~T-102",
+  "executionHistory": [
+    {
+      "taskId": "T-25~T-30",
+      "taskName": "合并实现系统枚举、用户角色菜单及关系持久化对象与结构测试",
+      "status": "completed",
+      "files": [
+        {
+          "path": "nova-data-access/pom.xml",
+          "status": "modified"
+        },
+        {
+          "path": "nova-data-access/src/main/java/com/zov/smart/nova/data/access/system/user/enums/UserStatusEnum.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-data-access/src/main/java/com/zov/smart/nova/data/access/system/role/enums/RoleStatusEnum.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-data-access/src/main/java/com/zov/smart/nova/data/access/system/menu/enums/MenuTypeEnum.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-data-access/src/main/java/com/zov/smart/nova/data/access/system/menu/enums/MenuStatusEnum.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-data-access/src/main/java/com/zov/smart/nova/data/access/system/dict/enums/DictStatusEnum.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-data-access/src/main/java/com/zov/smart/nova/data/access/system/config/enums/ConfigTypeEnum.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-data-access/src/main/java/com/zov/smart/nova/data/access/system/log/enums/LoginResultEnum.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-data-access/src/main/java/com/zov/smart/nova/data/access/system/log/enums/LoginFailureReasonEnum.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-data-access/src/main/java/com/zov/smart/nova/data/access/system/entity/SysUserDO.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-data-access/src/main/java/com/zov/smart/nova/data/access/system/entity/SysRoleDO.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-data-access/src/main/java/com/zov/smart/nova/data/access/system/entity/SysMenuDO.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-data-access/src/main/java/com/zov/smart/nova/data/access/system/entity/SysUserRoleDO.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-data-access/src/main/java/com/zov/smart/nova/data/access/system/entity/SysRoleMenuDO.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-data-access/src/test/java/com/zov/smart/nova/data/access/system/enums/SystemEnumContractTest.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-data-access/src/test/java/com/zov/smart/nova/data/access/system/entity/UserRoleEntityMappingTest.java",
+          "status": "created"
+        },
+        {
+          "path": "nova-data-access/src/test/java/com/zov/smart/nova/data/access/system/entity/MenuRelationEntityMappingTest.java",
+          "status": "created"
+        },
+        {
+          "path": "README.md",
+          "status": "modified"
+        },
+        {
+          "path": "nova-data-access/README.md",
+          "status": "modified"
+        }
+      ]
+    },
+    {
+      "taskId": "T-47~T-52",
+      "taskName": "合并实现 nova-infra-web RequestId/异常处理与 nova-infra-redis JSON 序列化配置",
+      "status": "completed",
+      "files": [
+        {
+          "path": "README.md",
+          "status": "modified"
+        },
+        {
+          "path": "file_manifest.json",
+          "status": "modified"
+        },
+        {
+          "path": "nova-infra/nova-infra-web/pom.xml",
+          "status": "modified"
+        },
+        {
+          "path": "nova-infra/nova-infra-web/README.md",
+          "status": "modified"
+        },
+        {
+          "path": "nova-infra/nova-infra-web/src/main/java/com/zov/smart/nova/infra/web/filter/RequestIdFilter.java",
+          "status": "new"
+        },
+        {
+          "path": "nova-infra/nova-infra-web/src/main/java/com/zov/smart/nova/infra/web/exception/GlobalExceptionHandler.java",
+          "status": "new"
+        },
+        {
+          "path": "nova-infra/nova-infra-web/src/main/java/com/zov/smart/nova/infra/web/config/NovaWebAutoConfiguration.java",
+          "status": "new"
+        },
+        {
+          "path": "nova-infra/nova-infra-web/src/main/resources/META-INF/spring.factories",
+          "status": "new"
+        },
+        {
+          "path": "nova-infra/nova-infra-web/src/test/java/com/zov/smart/nova/infra/web/filter/RequestIdFilterTest.java",
+          "status": "new"
+        },
+        {
+          "path": "nova-infra/nova-infra-web/src/test/java/com/zov/smart/nova/infra/web/exception/GlobalExceptionHandlerTest.java",
+          "status": "new"
+        },
+        {
+          "path": "nova-infra/nova-infra-web/src/test/java/com/zov/smart/nova/infra/web/support/WebModuleBoundaryTest.java",
+          "status": "new"
+        },
+        {
+          "path": "nova-infra/nova-infra-redis/pom.xml",
+          "status": "modified"
+        },
+        {
+          "path": "nova-infra/nova-infra-redis/README.md",
+          "status": "modified"
+        },
+        {
+          "path": "nova-infra/nova-infra-redis/src/main/java/com/zov/smart/nova/infra/redis/config/RedisAutoConfiguration.java",
+          "status": "new"
+        },
+        {
+          "path": "nova-infra/nova-infra-redis/src/main/java/com/zov/smart/nova/infra/redis/serializer/NovaRedisJsonSerializer.java",
+          "status": "new"
+        },
+        {
+          "path": "nova-infra/nova-infra-redis/src/main/java/com/zov/smart/nova/infra/redis/serializer/NovaRedisSerializers.java",
+          "status": "new"
+        },
+        {
+          "path": "nova-infra/nova-infra-redis/src/main/resources/META-INF/spring.factories",
+          "status": "new"
+        },
+        {
+          "path": "nova-infra/nova-infra-redis/src/test/java/com/zov/smart/nova/infra/redis/config/RedisAutoConfigurationTest.java",
+          "status": "new"
+        },
+        {
+          "path": "nova-infra/nova-infra-redis/src/test/java/com/zov/smart/nova/infra/redis/serializer/NovaRedisJsonSerializerTest.java",
+          "status": "new"
+        },
+        {
+          "path": "nova-infra/nova-infra-redis/src/test/java/com/zov/smart/nova/infra/redis/support/RedisModuleBoundaryTest.java",
+          "status": "new"
+        }
+      ],
+      "acceptance": [
+        "X-Request-Id header unified and propagated to TraceContext/MDC/response header",
+        "GlobalExceptionHandler maps BusinessException and validation errors through Result",
+        "RedisTemplate uses String key serializer and JSON value serializer without default typing",
+        "Typed Redis JSON serializer supports explicit deserialization",
+        "No Controller/Service/Biz/Mapper/security business logic generated"
+      ]
+    },
+    {
+      "task": "T-91~T-102",
+      "status": "completed",
+      "changedFileCount": 29
+    }
+  ],
+  "last_completed_task": "T-91~T-102",
+  "updated_at": "2026-05-26T13:25:00-07:00",
+  "T-61~T-78": {
+    "status": "completed",
+    "description": "Security configuration, dual token session, refresh flow, brute-force guard, authentication filter, permission checker, AuthService/AuthController and tests.",
+    "changed_files": [
+      "README.md",
+      "file_manifest.json",
+      "nova-business/nova-system-center/nova-system-api/README.md",
+      "nova-common/nova-common-context/src/main/java/com/zov/smart/nova/common/context/LoginUser.java",
+      "nova-common/nova-common-context/src/main/java/com/zov/smart/nova/common/context/LoginUserContext.java",
+      "nova-common/nova-common-core/src/main/java/com/zov/smart/nova/common/core/error/AuthErrorCode.java",
+      "nova-infra/nova-infra-audit/src/test/java/com/zov/smart/nova/infra/audit/support/AuditModuleBoundaryTest.java",
+      "nova-infra/nova-infra-guard/src/test/java/com/zov/smart/nova/infra/guard/support/GuardModuleBoundaryTest.java",
+      "nova-infra/nova-infra-security/README.md",
+      "nova-infra/nova-infra-security/pom.xml",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/annotation/RequireLogin.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/annotation/RequirePermission.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/brute/LoginBruteForceGuard.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/config/NovaSecurityAutoConfiguration.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/controller/AuthController.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/filter/TokenAuthenticationFilter.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/handler/AccessDeniedHandlerImpl.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/handler/AuthenticationEntryPointHandler.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/model/ChangePasswordRequest.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/model/CurrentMenuVO.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/model/CurrentUserResponse.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/model/LoginRequest.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/model/LoginResponse.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/model/PermissionCodeResponse.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/model/RefreshTokenRequest.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/model/RefreshTokenResponse.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/model/TokenPair.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/model/TokenSessionDO.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/model/UpdateProfileRequest.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/permission/LogicalOperator.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/permission/PermissionAspect.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/permission/PermissionChecker.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/properties/NovaSecurityProperties.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/service/AuthService.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/service/SecurityCacheService.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/service/SecurityLoginLogService.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/service/SecurityUserService.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/service/TokenService.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/service/impl/SecurityCacheServiceImpl.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/service/impl/TokenServiceImpl.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/support/SecurityRedisKeys.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/token/AccessTokenCacheStore.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/token/RefreshTokenCacheStore.java",
+      "nova-infra/nova-infra-security/src/main/java/com/zov/smart/nova/infra/security/token/TokenSessionSerializer.java",
+      "nova-infra/nova-infra-security/src/main/resources/META-INF/spring.factories",
+      "nova-infra/nova-infra-security/src/test/java/com/zov/smart/nova/infra/security/brute/LoginBruteForceGuardContractTest.java",
+      "nova-infra/nova-infra-security/src/test/java/com/zov/smart/nova/infra/security/config/NovaSecurityAutoConfigurationContractTest.java",
+      "nova-infra/nova-infra-security/src/test/java/com/zov/smart/nova/infra/security/controller/AuthControllerContractTest.java",
+      "nova-infra/nova-infra-security/src/test/java/com/zov/smart/nova/infra/security/filter/TokenAuthenticationFilterContractTest.java",
+      "nova-infra/nova-infra-security/src/test/java/com/zov/smart/nova/infra/security/model/AuthModelContractTest.java",
+      "nova-infra/nova-infra-security/src/test/java/com/zov/smart/nova/infra/security/permission/PermissionCheckerContractTest.java",
+      "nova-infra/nova-infra-security/src/test/java/com/zov/smart/nova/infra/security/properties/NovaSecurityPropertiesTest.java",
+      "nova-infra/nova-infra-security/src/test/java/com/zov/smart/nova/infra/security/service/AuthServiceContractTest.java",
+      "nova-infra/nova-infra-security/src/test/java/com/zov/smart/nova/infra/security/support/SecurityModuleBoundaryTest.java",
+      "nova-infra/nova-infra-security/src/test/java/com/zov/smart/nova/infra/security/token/TokenServiceContractTest.java"
+    ]
+  },
+  "taskArtifacts": {
+    "T-103~T-116": {
+      "createdOrModified": [
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/biz/ConfigBiz.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/biz/DictBiz.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/biz/EnumBiz.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/biz/LogBiz.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/biz/MenuBiz.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/biz/RoleBiz.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/biz/UserBiz.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/biz/impl/ConfigBizImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/biz/impl/DictBizImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/biz/impl/EnumBizImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/biz/impl/LogBizImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/biz/impl/MenuBizImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/biz/impl/RoleBizImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/biz/impl/UserBizImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/controller/ConfigController.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/controller/DictController.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/controller/EnumController.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/controller/LogController.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/controller/MenuController.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/controller/RoleController.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/controller/UserController.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/converter/ConfigConverter.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/converter/DictConverter.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/converter/LogConverter.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/converter/MenuConverter.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/converter/RoleConverter.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/converter/StaticMenuTreeFlattener.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/converter/UserConverter.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/error/SystemErrorCode.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/facade/ConfigFacadeImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/facade/DictFacadeImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/facade/EnumFacadeImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/facade/LogFacadeImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/facade/MenuFacadeImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/facade/PermissionFacadeImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/facade/RoleFacadeImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/facade/UserFacadeImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/service/ConfigService.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/service/DictService.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/service/LogQueryService.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/service/MenuService.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/service/RoleService.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/service/UserService.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/service/impl/ConfigServiceImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/service/impl/DictServiceImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/service/impl/LogQueryServiceImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/service/impl/MenuServiceImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/service/impl/RoleServiceImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/service/impl/UserServiceImpl.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/support/StatusValidators.java",
+        "nova-business/nova-system-center/nova-system-biz/src/main/java/com/zov/smart/nova/system/support/TransactionAfterCommitExecutor.java"
+      ],
+      "package": "T-103_to_T-116_system-biz-menu-dict-config-log-enum.zip"
+    }
+  },
+  "delivery": {
+    "finalPackage": "T-131_to_T-140_final-acceptance-delivery.zip",
+    "containsFullProject": true,
+    "mavenExecutedInSandbox": false,
+    "mavenExecutionNote": "mvn is not installed in the current sandbox; static validation scripts were executed instead.",
+    "startupExecutedInSandbox": false,
+    "startupExecutionNote": "startup requires MySQL and Redis runtime services and is documented for local execution."
+  }
+}

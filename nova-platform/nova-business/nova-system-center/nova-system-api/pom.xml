@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.zov.smart.nova</groupId>
+        <artifactId>nova-system-center</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>nova-system-api</artifactId>
+    <packaging>jar</packaging>
+
+    <name>nova-system-api</name>
+    <description>Clean system center API contract module containing commands, queries, DTOs, value objects, constants, and Facade interfaces.</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.zov.smart.nova</groupId>
+            <artifactId>nova-common-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zov.smart.nova</groupId>
+            <artifactId>nova-common-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zov.smart.nova</groupId>
+            <artifactId>nova-common-event</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

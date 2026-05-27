@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.zov.smart.nova</groupId>
+        <artifactId>nova-infra</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>nova-infra-security</artifactId>
+    <packaging>jar</packaging>
+
+    <name>nova-infra-security</name>
+    <description>Security infrastructure for login/logout/current-user APIs, JWT and Redis session management, authentication filter, permission checks, security cache, and login log writing.</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.zov.smart.nova</groupId>
+            <artifactId>nova-common-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zov.smart.nova</groupId>
+            <artifactId>nova-common-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zov.smart.nova</groupId>
+            <artifactId>nova-common-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zov.smart.nova</groupId>
+            <artifactId>nova-common-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zov.smart.nova</groupId>
+            <artifactId>nova-data-access</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zov.smart.nova</groupId>
+            <artifactId>nova-infra-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zov.smart.nova</groupId>
+            <artifactId>nova-infra-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+</project>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zov.smart.nova.data.access.system.mapper.SysUserMapper">
+    <resultMap id="SysUserResultMap" type="com.zov.smart.nova.data.access.system.entity.SysUserDO">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="real_name" property="realName"/>
+        <result column="nickname" property="nickname"/>
+        <result column="mobile" property="mobile"/>
+        <result column="email" property="email"/>
+        <result column="avatar" property="avatar"/>
+        <result column="status" property="status" typeHandler="com.zov.smart.nova.common.mybatis.handler.EnumCodeTypeHandler"/>
+        <result column="super_admin_flag" property="superAdminFlag"/>
+        <result column="login_lock_flag" property="loginLockFlag"/>
+        <result column="last_login_at" property="lastLoginAt"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_by" property="updatedBy"/>
+        <result column="updated_at" property="updatedAt"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="version" property="version"/>
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, username, password, real_name, nickname, mobile, email, avatar,
+        status, super_admin_flag, login_lock_flag, last_login_at,
+        created_by, created_at, updated_by, updated_at, delete_flag, version
+    </sql>
+
+    <select id="selectByUsername" resultMap="SysUserResultMap">
+        SELECT <include refid="BaseColumnList"/>
+        FROM sys_user
+        WHERE username = #{username}
+          AND delete_flag = 0
+        LIMIT 1
+    </select>
+
+    <select id="selectUserPage" resultMap="SysUserResultMap">
+        SELECT <include refid="BaseColumnList"/>
+        FROM sys_user
+        WHERE delete_flag = 0
+        <if test="username != null and username != ''">
+            AND username LIKE CONCAT('%', #{username}, '%')
+        </if>
+        <if test="realName != null and realName != ''">
+            AND real_name LIKE CONCAT('%', #{realName}, '%')
+        </if>
+        <if test="mobile != null and mobile != ''">
+            AND mobile LIKE CONCAT('%', #{mobile}, '%')
+        </if>
+        <if test="status != null and status != ''">
+            AND status = #{status}
+        </if>
+        ORDER BY id DESC
+    </select>
+</mapper>

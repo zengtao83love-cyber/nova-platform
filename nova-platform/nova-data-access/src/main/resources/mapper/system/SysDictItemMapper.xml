@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zov.smart.nova.data.access.system.mapper.SysDictItemMapper">
+    <resultMap id="SysDictItemResultMap" type="com.zov.smart.nova.data.access.system.entity.SysDictItemDO">
+        <id column="id" property="id"/>
+        <result column="dict_code" property="dictCode"/>
+        <result column="item_label" property="itemLabel"/>
+        <result column="item_value" property="itemValue"/>
+        <result column="sort_order" property="sortOrder"/>
+        <result column="status" property="status" typeHandler="com.zov.smart.nova.common.mybatis.handler.EnumCodeTypeHandler"/>
+        <result column="remark" property="remark"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_by" property="updatedBy"/>
+        <result column="updated_at" property="updatedAt"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="version" property="version"/>
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, dict_code, item_label, item_value, sort_order, status, remark,
+        created_by, created_at, updated_by, updated_at, delete_flag, version
+    </sql>
+
+    <select id="selectItemsByDictCode" resultMap="SysDictItemResultMap">
+        SELECT <include refid="BaseColumnList"/>
+        FROM sys_dict_item
+        WHERE dict_code = #{dictCode}
+          AND delete_flag = 0
+          AND status = 'ENABLED'
+        ORDER BY sort_order ASC, id ASC
+    </select>
+
+    <select id="selectDictItemPage" resultMap="SysDictItemResultMap">
+        SELECT <include refid="BaseColumnList"/>
+        FROM sys_dict_item
+        WHERE delete_flag = 0
+          AND dict_code = #{dictCode}
+        <if test="itemLabel != null and itemLabel != ''">
+            AND item_label LIKE CONCAT('%', #{itemLabel}, '%')
+        </if>
+        <if test="status != null and status != ''">
+            AND status = #{status}
+        </if>
+        ORDER BY sort_order ASC, id DESC
+    </select>
+</mapper>

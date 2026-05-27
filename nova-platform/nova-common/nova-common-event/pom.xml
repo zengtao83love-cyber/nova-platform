@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.zov.smart.nova</groupId>
+        <artifactId>nova-common</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>nova-common-event</artifactId>
+    <packaging>jar</packaging>
+
+    <name>nova-common-event</name>
+    <description>Synchronous domain event abstractions without external MQ dependencies.</description>
+
+    <dependencies>
+            <dependency>
+                <groupId>com.zov.smart.nova</groupId>
+                <artifactId>nova-common-core</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <optional>true</optional>
+            </dependency>
+        </dependencies>
+</project>

@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.zov.smart.nova.infra.mybatisplus.config.NovaMybatisPlusAutoConfiguration

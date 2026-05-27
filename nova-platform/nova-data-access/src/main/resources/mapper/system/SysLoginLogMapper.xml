@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zov.smart.nova.data.access.system.mapper.SysLoginLogMapper">
+    <resultMap id="SysLoginLogResultMap" type="com.zov.smart.nova.data.access.system.entity.SysLoginLogDO">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="login_ip" property="loginIp"/>
+        <result column="user_agent" property="userAgent"/>
+        <result column="login_result" property="loginResult" typeHandler="com.zov.smart.nova.common.mybatis.handler.EnumCodeTypeHandler"/>
+        <result column="failure_reason" property="failureReason" typeHandler="com.zov.smart.nova.common.mybatis.handler.EnumCodeTypeHandler"/>
+        <result column="login_at" property="loginAt"/>
+        <result column="created_at" property="createdAt"/>
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, user_id, username, login_ip, user_agent, login_result, failure_reason, login_at, created_at
+    </sql>
+
+    <select id="selectLoginLogPage" resultMap="SysLoginLogResultMap">
+        SELECT <include refid="BaseColumnList"/>
+        FROM sys_login_log
+        WHERE 1 = 1
+        <if test="username != null and username != ''">
+            AND username LIKE CONCAT('%', #{username}, '%')
+        </if>
+        <if test="loginResult != null and loginResult != ''">
+            AND login_result = #{loginResult}
+        </if>
+        <if test="beginTime != null">
+            AND login_at &gt;= #{beginTime}
+        </if>
+        <if test="endTime != null">
+            AND login_at &lt;= #{endTime}
+        </if>
+        ORDER BY login_at DESC, id DESC
+    </select>
+</mapper>

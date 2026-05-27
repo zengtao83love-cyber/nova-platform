@@ -1,0 +1,114 @@
+server:
+  port: ${NOVA_SERVER_PORT:8080}
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: nova-platform
+  profiles:
+    active: ${NOVA_PROFILE:local}
+  main:
+    allow-bean-definition-overriding: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${NOVA_DATASOURCE_URL:jdbc:mysql://127.0.0.1:3306/nova_platform?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true}
+    username: ${NOVA_DATASOURCE_USERNAME:nova}
+    password: ${NOVA_DATASOURCE_PASSWORD:nova123456}
+    hikari:
+      pool-name: NovaHikariPool
+      minimum-idle: ${NOVA_DATASOURCE_MIN_IDLE:5}
+      maximum-pool-size: ${NOVA_DATASOURCE_MAX_POOL_SIZE:20}
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+  redis:
+    host: ${NOVA_REDIS_HOST:127.0.0.1}
+    port: ${NOVA_REDIS_PORT:6379}
+    database: ${NOVA_REDIS_DATABASE:0}
+    password: ${NOVA_REDIS_PASSWORD:}
+    timeout: 3000ms
+    lettuce:
+      pool:
+        max-active: 16
+        max-idle: 8
+        min-idle: 1
+        max-wait: 3000ms
+  jackson:
+    time-zone: Asia/Shanghai
+    date-format: yyyy-MM-dd HH:mm:ss
+    default-property-inclusion: non_null
+
+mybatis-plus:
+  mapper-locations:
+    - classpath*:/mapper/**/*.xml
+  type-aliases-package: com.zov.smart.nova.data.access.system.entity,com.zov.smart.nova.infra.audit.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  global-config:
+    banner: false
+    db-config:
+      logic-delete-field: deleteFlag
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      id-type: ASSIGN_ID
+
+nova:
+  security:
+    token-header: Authorization
+    token-prefix: Bearer
+    jwt-secret: ${NOVA_SECURITY_JWT_SECRET:change-me-change-me-change-me-change-me-32}
+    access-token-expire-seconds: ${NOVA_SECURITY_ACCESS_TOKEN_EXPIRE_SECONDS:7200}
+    refresh-token-expire-seconds: ${NOVA_SECURITY_REFRESH_TOKEN_EXPIRE_SECONDS:604800}
+    permission-cache-ttl-seconds: ${NOVA_SECURITY_PERMISSION_CACHE_TTL_SECONDS:3600}
+    single-device-login: ${NOVA_SECURITY_SINGLE_DEVICE_LOGIN:false}
+    max-login-devices: ${NOVA_SECURITY_MAX_LOGIN_DEVICES:5}
+    password-strength-regex: '^(?=.*[a-zA-Z])(?=.*\d).{8,}$'
+    login:
+      max-fail-count: ${NOVA_SECURITY_LOGIN_MAX_FAIL_COUNT:5}
+      lock-window-seconds: ${NOVA_SECURITY_LOGIN_LOCK_WINDOW_SECONDS:1800}
+    ignore-urls:
+      - /api/auth/login
+      - /api/auth/refresh
+      - /doc.html
+      - /v2/api-docs
+      - /v2/api-docs/**
+      - /swagger-resources/**
+      - /webjars/**
+      - /actuator/health
+      - /api/health
+  mybatis-plus:
+    pagination:
+      enabled: true
+      max-limit: 500
+      overflow: false
+    optimistic-locker:
+      enabled: true
+    block-attack:
+      enabled: true
+    audit-fill:
+      enabled: true
+  guard:
+    repeat-submit-enabled: true
+    resource-lock-enabled: true
+    repeat-submit-prefix: 'nova:guard:repeat-submit:'
+    resource-lock-prefix: 'nova:guard:resource-lock:'
+
+knife4j:
+  enable: ${NOVA_KNIFE4J_ENABLE:true}
+  setting:
+    language: zh_cn
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
+
+logging:
+  config: classpath:logback-spring.xml

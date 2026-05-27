@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.zov.smart.nova</groupId>
+        <artifactId>nova-platform</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>nova-business</artifactId>
+    <packaging>pom</packaging>
+
+    <name>nova-business</name>
+    <description>Business aggregation module. Current SDD scope only contains nova-system-center.</description>
+
+    <modules>
+        <module>nova-system-center</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.zov.smart.nova</groupId>
+                <artifactId>nova-bom</artifactId>
+                <version>${revision}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
