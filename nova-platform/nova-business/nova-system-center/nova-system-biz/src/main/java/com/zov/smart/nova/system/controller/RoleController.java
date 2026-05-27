@@ -38,7 +38,7 @@ public class RoleController {
         this.roleBiz = roleBiz;
     }
 
-    @GetMapping
+    @PostMapping("/page")
     @RequirePermission(SystemPermissionConstants.ROLE_LIST)
     public Result<PageResult<RoleVO>> pageRoles(@Valid @RequestBody RolePageQuery query) {
         return Result.success(roleBiz.pageRoles(query));

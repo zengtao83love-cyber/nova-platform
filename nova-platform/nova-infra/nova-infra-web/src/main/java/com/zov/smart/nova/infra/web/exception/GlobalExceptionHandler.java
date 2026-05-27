@@ -38,6 +38,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<Result<Void>> handleBusinessException(BusinessException ex) {
+        log.error(ex.getMessage(), ex);
         return build(ex.getErrorCode(), ex.getMessage());
     }
 
@@ -71,21 +72,25 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({MethodArgumentTypeMismatchException.class, HttpMessageNotReadableException.class})
     public ResponseEntity<Result<Void>> handleBadRequestException(Exception ex) {
+        log.error(ex.getMessage(), ex);
         return build(CommonErrorCode.COMMON_PARAM_INVALID, CommonErrorCode.COMMON_PARAM_INVALID.getMessage());
     }
 
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<Result<Void>> handleNoHandlerFoundException(NoHandlerFoundException ex) {
+        log.error(ex.getMessage(), ex);
         return build(CommonErrorCode.COMMON_NOT_FOUND, CommonErrorCode.COMMON_NOT_FOUND.getMessage());
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<Result<Void>> handleMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
+        log.error(ex.getMessage(), ex);
         return build(CommonErrorCode.COMMON_PARAM_INVALID, "请求方法不支持: " + ex.getMethod());
     }
 
     @ExceptionHandler(Throwable.class)
     public ResponseEntity<Result<Void>> handleThrowable(Throwable ex) {
+        log.error(ex.getMessage(), ex);
         String traceId = TraceContext.get();
         log.error("Unhandled system exception, traceId={}", traceId, ex);
         return build(CommonErrorCode.COMMON_SYSTEM_ERROR, CommonErrorCode.COMMON_SYSTEM_ERROR.getMessage());

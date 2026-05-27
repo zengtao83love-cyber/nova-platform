@@ -37,7 +37,8 @@ public class MenuController {
         this.menuBiz = menuBiz;
     }
 
-    @GetMapping
+
+    @PostMapping("/tree")
     @RequirePermission(SystemPermissionConstants.MENU_LIST)
     public Result<List<MenuTreeVO>> listTree(@Valid @RequestBody MenuTreeQuery query) {
         return Result.success(menuBiz.listMenuTree(query));
